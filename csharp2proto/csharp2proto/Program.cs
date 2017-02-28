@@ -10,13 +10,13 @@ namespace csharp2proto
     {
         static void Main(string[] args)
         {
-            A obj = new A();
+            A obj = new B();
             var aType = obj.GetType();
             foreach(var propType in aType.GetProperties(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public).Where(x => x.CanRead))
             {
                 Console.WriteLine($"{aType.Name}.{propType.Name} of type {propType.PropertyType}");
             }
-            foreach (var fieldType in aType.GetFields().Where(x => !x.IsStatic))
+            foreach (var fieldType in aType.GetFields(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public))
             {
                 Console.WriteLine($"{aType.Name}.{fieldType.Name} of type {fieldType.FieldType}");
             }
@@ -39,6 +39,8 @@ namespace csharp2proto
         {
             public C fruit;
             public float Float { get; set; }
+
+            public static bool YaReally;
         }
 
         public struct C
